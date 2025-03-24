@@ -285,6 +285,13 @@
       },
       "hash": "2fecfc082f712cba95f6c423700cbda3a13d2670"
     },
+    "com.yvr.enterprise": {
+      "version": "git@github.com:PlayForDreamDevelopers/com.yvr.enterprise-mirror.git?path=/com.yvr.enterprise#version_0.0.9",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "849e183d9084d9132de4e17059ab133c7a290955"
+    },
     "com.yvr.interaction": {
       "version": "git@github.com:PlayForDreamDevelopers/com.yvr.interaction-mirror.git?path=/com.yvr.interaction#version_0.6.28",
       "depth": 0,
