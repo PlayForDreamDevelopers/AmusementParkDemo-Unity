@@ -23,11 +23,17 @@
 
 </div>
 
-<!-- Add callouts here if required-->
-
 ## About The Project
 
 Amusement park demo based on LBE API
+
+## Sample
+
+### Scan QR code
+
+Scan QR code and objects appear in the MR scene
+
+https://github.com/user-attachments/assets/5c287aa1-159f-4c9a-a9ac-2972001ce8fb
 
 ## Requirements
 
