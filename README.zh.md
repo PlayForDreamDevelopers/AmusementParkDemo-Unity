@@ -1,62 +1,62 @@
-[![en](https://img.shields.io/badge/lang-en-red.svg)](./README.md)
-
-<!--
-请先阅读此文档！！！！
-将以下占位符替换为实际值：
-    - {{PROJECT_REPO_URL}}: 项目仓库的URL
-    - {{DocumentationURL}}: 项目文档的URL，尽可能使用docfx生成的GitHub Pages
-    - {{BriefDescription}}: 项目简介
-    - {SampleURL}: 示例项目的URL，对于包项目，应为示例仓库的URL。如果包项目有多个示例，请链接到“关于项目”部分的“示例”标题。
-    - {BugIssueURL}: 报告错误问题的URL
-      - 例如：https://github.com/PlayForDreamDevelopers/unity-template/issues/new?template=bug_report.yml
-    - {FeatureIssueURL}: 请求功能问题的URL
-      - 例如：https://github.com/PlayForDreamDevelopers/unity-template/issues/new?template=feature_request.yml
-    - {DocumentationIssueURL}: 文档问题的URL
-      - 例如：https://github.com/PlayForDreamDevelopers/unity-template/issues/new?template=documentation_update.yml
--->
+[![zh](https://img.shields.io/badge/lang-zh-blue.svg)](./README.zh.md)
 
 <br />
 <div align="center">
-    <a href="{{PROJECT_REPO_URL}}">
+    <a href="https://github.com/PlayForDreamDevelopers/AmusementParkDemo-Unity">
         <img src="https://www.pfdm.cn/en/static/img/logo.2b1b07e.png" alt="Logo" width="20%">
     </a>
-    <h1 align="center">设备 Unity 示例</h1>
+    <h1 align="center"> AmusementParkDemo-Unity </h1>
     <p align="center">
-        {{BriefDescription}}
+        游乐园项目演示
         <br />
-        <a href="{{DocumentationURL}}"><strong>查看文档 »</strong></a>
-        <br />
-        <br />
-        <a href="#samples">查看示例</a>
+        <a href="https://github.com/PlayForDreamDevelopers/AmusementParkDemo-Unity">查看示例</a>
         &middot;
-        <a href="{{BugIssueURL}}">报告错误</a>
+        <a href="https://github.com/PlayForDreamDevelopers/AmusementParkDemo-Unity/issues/new?template=bug_report.yml">报告错误</a>
         &middot;
-        <a href="{{FeatureIssueURL}}">请求功能</a>
+        <a href="https://github.com/PlayForDreamDevelopers/AmusementParkDemo-Unity/issues/new?template=feature_request.yml">请求功能</a>
         &middot;
-        <a href="{{DocumentationIssueURL}}">改进文档</a>
+        <a href="https://github.com/PlayForDreamDevelopers/AmusementParkDemo-Unity/issues/new?template=documentation_update.yml">改进文档</a>
     </p>
 
 </div>
 
-<!-- 如果需要，请在此处添加提示 -->
+## 项目简介
 
-## 关于项目
+基于LBE API开发的游乐园场景演示项目
 
-<!-- 项目描述
-    这个项目的功能是什么，它的用途是什么，等等。
+## 功能示例
 
-    对于示例项目，请在此处描述每个示例并附上截图或GIF。
-    对于包项目，请描述包的功能，并链接到示例项目。
+### 二维码扫描功能
 
-    -->
+扫描二维码后，物体将出现在混合现实(MR)场景中
 
-### 示例
+https://github.com/user-attachments/assets/5c287aa1-159f-4c9a-a9ac-2972001ce8fb
 
-<!-- 链接到第一个示例项目 -->
-<!-- 链接到第二个示例项目 -->
+`AmusementParkControl.cs`中的这段代码展示了如何通过获取锚点位姿后，使用矩阵运算确定展示物体的整体位置
 
-## 要求
+![image](https://github.com/user-attachments/assets/268c28a4-fa5a-4f47-ba88-3223395ce401)
 
-<!-- 项目要求：
-    Unity版本，依赖的 Unity Package 等，如果 Unity Package 有 Mirror 仓库的话，需要链接到该仓库的地址。
--->
+1. 矩阵计算与变换：
+
+    - 从字典m_MarkIdMatrixObjectDic中获取与标记ID对应的虚拟标记矩阵(virtualMarkMatrix)
+    
+    - 使用输入的标记位姿数据(data.markerPose)构建实际标记矩阵(actualMarkMatrix)，包含位置、旋转(orientation)和单位缩放(Vector3.one)
+    
+    - 通过将虚拟标记矩阵的逆矩阵(virtualMarkMatrix.inverse)与原点矩阵(m_OriginMatrix)相乘，计算原点在虚拟标记局部空间中的变换矩阵(originLocalMatrixInVirtual)
+    
+    - 通过将实际标记矩阵与原点的局部矩阵相乘，计算修正后的原点世界空间矩阵(fixedOriginWorldMatrix)，实现将原点从虚拟标记空间变换到真实标记空间
+
+2. 更新原点变换：
+
+    - 将计算得到的位置、旋转和缩放(lossy scale)从fixedOriginWorldMatrix应用到原点物体的本地变换
+    
+    - 这确保了原点物体的姿态与AR环境中检测到的标记正确对齐
+
+## 系统要求
+
+-   Unity 2022.3.52f1或更高版本
+-   所需Unity包：
+    -   [YVR Utilities](https://github.com/PlayForDreamDevelopers/com.yvr.Utilities-mirror)
+    -   [YVR Platform](https://github.com/PlayForDreamDevelopers/com.yvr.platform-mirror)
+    -   [YVR Core](https://github.com/PlayForDreamDevelopers/com.yvr.core-mirror)
+    -   [YVR Enterprise](https://github.com/PlayForDreamDevelopers/com.yvr.enterprise-mirror)
