@@ -35,11 +35,31 @@ Scan QR code and objects appear in the MR scene
 
 https://github.com/user-attachments/assets/5c287aa1-159f-4c9a-a9ac-2972001ce8fb
 
+This code in `AmusementParkControl.cs` demonstrates how to obtain the overall position of the displayed object through matrix operations after obtaining the anchor pose
+
+![image](https://github.com/user-attachments/assets/268c28a4-fa5a-4f47-ba88-3223395ce401)
+
+1. Matrix Calculations and Transformations:
+
+	- The virtual marker matrix (virtualMarkMatrix) corresponding to the marker ID is fetched from the dictionary m_MarkIdMatrixObjectDic.
+
+	- The actual marker matrix (actualMarkMatrix) is constructed using the input marker pose data (data.markerPose), which includes position, rotation (orientation), and uniform scale (Vector3.one).
+
+	- The origin’s local transformation matrix in virtual marker space (originLocalMatrixInVirtual) is computed by multiplying the inverse of the virtual marker matrix (virtualMarkMatrix.inverse) with the origin matrix (m_OriginMatrix).
+
+	- The corrected world-space matrix for the origin (fixedOriginWorldMatrix) is calculated by multiplying the actual marker matrix with the origin’s local matrix, effectively transforming the origin from virtual marker space to real-world marker space.
+
+2. Updating the Origin’s Transform:
+
+	- The computed position, rotation, and scale (lossy scale) from fixedOriginWorldMatrix are applied to the local transform of the origin object.
+
+	- This ensures that the origin object’s pose aligns correctly with the detected marker in the AR environment.
+
 ## Requirements
 
 -   Unity 2022.3.52f1 or later
 -   Unity Packages:
     -   [YVR Utilities](https://github.com/PlayForDreamDevelopers/com.yvr.Utilities-mirror)
     -   [YVR Platform](https://github.com/PlayForDreamDevelopers/com.yvr.platform-mirror)
-	-   [YVR Core](https://github.com/PlayForDreamDevelopers/com.yvr.core-mirror)
-	-   [YVR Enterprise](https://github.com/PlayForDreamDevelopers/com.yvr.enterprise-mirror)
+    -   [YVR Core](https://github.com/PlayForDreamDevelopers/com.yvr.core-mirror)
+    -   [YVR Enterprise](https://github.com/PlayForDreamDevelopers/com.yvr.enterprise-mirror)
