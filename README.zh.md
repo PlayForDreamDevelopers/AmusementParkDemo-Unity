@@ -34,7 +34,16 @@ https://github.com/user-attachments/assets/5c287aa1-159f-4c9a-a9ac-2972001ce8fb
 
 `AmusementParkControl.cs`中的这段代码展示了如何通过获取锚点位姿后，使用矩阵运算确定展示物体的整体位置
 
-![image](https://github.com/user-attachments/assets/268c28a4-fa5a-4f47-ba88-3223395ce401)
+```c#
+	Matrix4x4 virtualMarkMatrix = m_MarkIdMatrixObjectDic[data.markerId];
+	Matrix4x4 actualMarkMatrix = Matrix4x4.TRS(data.markerPose.position, data.markerPose.orientation, Vector3.one);
+	Matrix4x4 originLocalMatrixInVirtual = virtualMarkMatrix.inverse * m_OriginMatrix;
+	Matrix4x4 fixedOriginWorldMatrix = actualMarkMatrix * originLocalMatrixInVirtual;
+
+	origin.transform.localPosition = fixedOriginWorldMatrix.GetPosition();
+	origin.transform.localRotation = fixedOriginWorldMatrix.rotation;
+	origin.transform.localScale = fixedOriginWorldMatrix.lossyScale;
+```
 
 1. 矩阵计算与变换：
 
