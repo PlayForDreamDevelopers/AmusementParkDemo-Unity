@@ -37,7 +37,16 @@ https://github.com/user-attachments/assets/5c287aa1-159f-4c9a-a9ac-2972001ce8fb
 
 This code in `AmusementParkControl.cs` demonstrates how to obtain the overall position of the displayed object through matrix operations after obtaining the anchor pose
 
-![image](https://github.com/user-attachments/assets/268c28a4-fa5a-4f47-ba88-3223395ce401)
+```c#
+	Matrix4x4 virtualMarkMatrix = m_MarkIdMatrixObjectDic[data.markerId];
+	Matrix4x4 actualMarkMatrix = Matrix4x4.TRS(data.markerPose.position, data.markerPose.orientation, Vector3.one);
+	Matrix4x4 originLocalMatrixInVirtual = virtualMarkMatrix.inverse * m_OriginMatrix;
+	Matrix4x4 fixedOriginWorldMatrix = actualMarkMatrix * originLocalMatrixInVirtual;
+
+	origin.transform.localPosition = fixedOriginWorldMatrix.GetPosition();
+	origin.transform.localRotation = fixedOriginWorldMatrix.rotation;
+	origin.transform.localScale = fixedOriginWorldMatrix.lossyScale;
+```
 
 1. Matrix Calculations and Transformations:
 
